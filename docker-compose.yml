@@ -4,7 +4,7 @@ services:
     build:
       context: .
     environment:
-      - PORT=3000
+      - PORT=3000 
   mongo-database:
     volumes:
       - mongo-database:/data/db
