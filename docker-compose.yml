@@ -5,6 +5,8 @@ services:
       context: .
     environment:
       - PORT=3000 
+    depends_on:
+      - mongo-database
   mongo-database:
     volumes:
       - mongo-database:/data/db

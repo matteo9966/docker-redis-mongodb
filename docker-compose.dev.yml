@@ -11,5 +11,15 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - NODE_ENV=development
+      NODE_ENV: development
+      MONGO_IP: mongo-database
+      MONGO_PORT: 27017
+      MONGO_USER: matteodatabase
+      MONGO_PASSWORD: mypassword
     command: npm run start
+  mongo-database:
+     environment:
+      MONGO_INITDB_ROOT_USERNAME: matteodatabase
+      MONGO_INITDB_ROOT_PASSWORD: mypassword
+      
+
