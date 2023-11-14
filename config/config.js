@@ -3,4 +3,5 @@ export const config = {
   MONGO_PORT: process.env.MONGO_PORT || 27017,
   MONGO_USER: process.env.MONGO_USER,
   MONGO_PASSWORD: process.env.MONGO_PASSWORD,
+  NO_DB: process.env.NO_DB == "true" ? true : false,
 };

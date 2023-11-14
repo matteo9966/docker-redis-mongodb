@@ -1,5 +1,5 @@
 import "./initEnv.js";
-import { initializeMongoDB } from "./db/mongo.js";
+import { initializeMongoConnection } from "./db/mongo.js";
 import { startServer } from "./server/server.js";
 import { config } from "../config/config.js";
 /* aspettando di avere  */
@@ -9,13 +9,15 @@ const SERVER_PORT = process.env.PORT || 3000;
 //console.log({DATABASE_URL})
 console.log({ SERVER_PORT });
 console.log(config);
-const temp_DATABASE_URL = `mongodb://${config.MONGO_USER}:${config.MONGO_PASSWORD}@${config.MONGO_IP}:${config.MONGO_PORT}?authSource=admin`;
 async function main() {
   try {
-    const client = await initializeMongoDB(temp_DATABASE_URL);
-    console.log("connected to the MONGO DATABASE");
-    if (!client) {
-      throw new Error("Error connecting to mongodb");
+    if (!config.NO_DB) {
+      const client = await initializeMongoConnection();
+      //initialize the collections passing the
+      console.log("connected to the MONGO DATABASE");
+      if (!client) {
+        throw new Error("Error connecting to mongodb");
+      }
     }
     startServer(SERVER_PORT);
     console.log("the server started!");
