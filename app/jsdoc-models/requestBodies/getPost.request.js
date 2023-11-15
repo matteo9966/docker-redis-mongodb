@@ -1,6 +1,6 @@
-/**
- * @typedef {object} GetPostRequest
- * @property {string} id the post id
- */
+// /**
+//  * @typedef {object} GetPostRequest
+//  * @property {string} id the post id
+//  */
 
-export {};
+// export {};

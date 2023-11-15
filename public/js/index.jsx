@@ -5,7 +5,6 @@ const root = ReactDOM.createRoot(document.getElementById("app"));
 // import('/js/app/random.js').then(()=>console.log('imported'));
 root.render(
   <>
-    hello!!!!
-    <Home></Home>
+ 
   </>
 );

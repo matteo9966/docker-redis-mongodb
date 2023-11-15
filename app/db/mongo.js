@@ -1,12 +1,16 @@
 import { MongoClient } from "mongodb";
 import { config } from "../../config/config.js";
-const url = `mongodb://${config.MONGO_USER}:${config.MONGO_PASSWORD}@${config.MONGO_IP}:${config.MONGO_PORT}?authSource=admin`;
-const mongoClient = new MongoClient(url);
+const url = `mongodb://${config.MONGO_USER}:${config.MONGO_PASSWORD}@${config.MONGO_IP}:${config.MONGO_PORT}/${config.MONGO_DB_NAME}?authSource=admin`;
 
-async function initializeMongoConnection(mongoClient) {
+const currentUrl =
+  config.ENVIRONMENT === "development" ? config.MONGO_DEV_URL : url;
+
+const mongoClient = new MongoClient(currentUrl);
+
+async function initializeMongoConnection() {
   try {
     const client = mongoClient;
-    await client.connect();
+    await MongoClient.connect(currentUrl);
     const connected = await client.db("admin").command({ ping: 1 });
     if (connected) {
       return client;
@@ -16,6 +20,16 @@ async function initializeMongoConnection(mongoClient) {
   } catch (error) {
     console.log(error);
     return null;
+  }
+}
+
+async function testConnection(client) {
+  try {
+    if (!client) return false;
+    await client.db("admin").command({ ping: 1 });
+    return true;
+  } catch (error) {
+    return false;
   }
 }
 
@@ -48,4 +62,9 @@ function getClient() {
   return mongoClient;
 }
 
-export { closeConnection, initializeMongoConnection, getClient };
+export {
+  closeConnection,
+  getClient,
+  initializeMongoConnection,
+  testConnection,
+};

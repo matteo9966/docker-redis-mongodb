@@ -16,5 +16,10 @@ can become: the docker conatiner name is: mongo-database  <<< the service name
 
 storing the environment variable mongo connection string
 
-continue from : 2.25h
+continue from : 3.02h 
+TODO: login controller
+TODO: update insertUser (unique username)
+TODO: 
+
+
 

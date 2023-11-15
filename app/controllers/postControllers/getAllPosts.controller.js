@@ -1,9 +1,8 @@
-import * as postModel from "../../jsdoc-models.js";
 import { postsCollection } from "../../db/post.model.js";
-import { RequestHandler } from "express";
+import express from "express";
 import { responseBodyFactory } from "../../utils/responseBodyFactory.js";
 /**
- * @type {RequestHandler}
+ * @type {express.RequestHandler}
  */
 export const getAllPosts = async (req, res, next) => {
   try {

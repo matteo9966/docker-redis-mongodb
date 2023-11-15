@@ -1,5 +1,5 @@
 import "./initEnv.js";
-import { initializeMongoConnection } from "./db/mongo.js";
+import { initializeMongoConnection,testConnection } from "./db/mongo.js";
 import { startServer } from "./server/server.js";
 import { config } from "../config/config.js";
 /* aspettando di avere  */
@@ -11,14 +11,19 @@ console.log({ SERVER_PORT });
 console.log(config);
 async function main() {
   try {
-    if (!config.NO_DB) {
+    if (config.WITH_DB) {
       const client = await initializeMongoConnection();
-      //initialize the collections passing the
-      console.log("connected to the MONGO DATABASE");
+      if(await testConnection(client)){
+        console.log('connection succeded!')
+      }else{
+        console.log('connection failed')
+      }
+     
       if (!client) {
         throw new Error("Error connecting to mongodb");
       }
     }
+    
     startServer(SERVER_PORT);
     console.log("the server started!");
   } catch (error) {

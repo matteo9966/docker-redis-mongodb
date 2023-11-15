@@ -1,5 +1,5 @@
-console.log('cssStyleloader is loaded')
 function getExistingLinkElementByKey(key) {
+  
   return document.head.querySelector(
     `link[rel="stylesheet"].${getClassNameForKey(key)}`
   );
@@ -35,6 +35,7 @@ function removeStylesheet(key) {
   href,
   key = Math.random().toString(16).slice(2)
 ) {
+  console.log('LOADING STYLE!')
   getLinkElementForKey(key).setAttribute("href", href);
   return () => removeStylesheet(key);
 }
