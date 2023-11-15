@@ -32,4 +32,21 @@ async function main() {
   }
 }
 
+process.on('SIGINT', () => {
+  console.info("Interrupted")
+  process.exit(0)
+})
+process.on('SIGTERM', () => {
+  console.info("Interrupted")
+  process.exit(0)
+})
+process.on('SIGKILL', () => {
+  console.info("Interrupted")
+  process.exit(0)
+})
+process.on('SIGABRT', () => {
+  console.info("Interrupted")
+  process.exit(0)
+})
+
 main().catch((e) => console.log("ERROR: ", e));
