@@ -6,8 +6,6 @@ export function router() {
     res.render("index");
   });
 
-  rou
-
   router.all("/*", (req, res) => {
     res.redirect("");
   });

@@ -1,0 +1,23 @@
+version: "3"
+services:
+  node-app:
+    build:
+      context: .
+    environment:
+      - PORT=3000 
+    depends_on:
+      - mongo-database
+  mongo-database:
+    volumes:
+      - mongo-database:/data/db
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: matteodatabase
+      MONGO_INITDB_ROOT_PASSWORD: mypassword
+    command: [--auth]
+    ports:
+      - 27017:27017
+  redis:
+    image: redis 
+volumes:
+  mongo-database:

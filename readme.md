@@ -16,10 +16,14 @@ can become: the docker conatiner name is: mongo-database  <<< the service name
 
 storing the environment variable mongo connection string
 
-continue from : 3.02h 
-TODO: login controller
-TODO: update insertUser (unique username)
-TODO: 
+
+# wiring up redis
+
+in order to use redis:
+add a redis image to the docker-compose.yml file
+use express-session library
+use connect-redis library
 
 
+continue from : 3.34h 
 

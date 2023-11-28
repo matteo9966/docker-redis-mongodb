@@ -1,0 +1,35 @@
+[
+  {
+    "_id": "8c8b5582-bfe6-458c-9a22-f9850abdd289",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://localhost:3000/user/signup",
+    "url": "http://localhost:3000/user/signup",
+    "method": "POST",
+    "sortNum": 0,
+    "created": "2023-11-21T17:17:49.079Z",
+    "modified": "2023-11-21T17:17:49.079Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"username\":\"matteo\",\n  \"password\":\"secret1\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "b47cedd2-8608-4a9e-a9b4-7a0b458b46f9",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://localhost:3000",
+    "url": "http://localhost:3000",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2023-11-21T17:21:43.441Z",
+    "modified": "2023-11-21T17:21:43.441Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  }
+]

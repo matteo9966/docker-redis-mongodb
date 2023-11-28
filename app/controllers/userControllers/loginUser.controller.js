@@ -1,27 +1,36 @@
 import { CustomServerError } from "../../errors/CustomServerErrror.js";
 import express from "express";
 import * as user from "../../jsdoc-models/user.model.js";
-import { insertUser as insertUserInDB } from "../../db/user.model.js";
+import { getUserByUsername } from "../../db/user.model.js";
 import { responseBodyFactory } from "../../utils/responseBodyFactory.js";
-import { hashPassword } from "../../utils/argon.js";
+import { verifyPassword } from "../../utils/argon.js";
 /**
  *
  * @type {express.RequestHandler}
  */
-export const insertUser = async (req, res, next) => {
+export const loginUser = async (req, res, next) => {
   /**@type {user.User}*/ const body = req.body;
   if (!body.password || !body.username) {
     throw new CustomServerError(400, "missing password or username");
   }
-  const hashedP = hashPassword(body.password);
-  /**@type {user.User}*/ const userToInsert = {
-    password: hashedP,
+
+  const dbUser = await getUserByUsername({
+    password: body.password,
     username: body.username,
-  };
-  const result = await insertUserInDB(userToInsert);
-  if (result) {
-    res.json(responseBodyFactory(200, { id: result.insertedId.toString() }));
+  });
+  if (!dbUser) {
+    throw new CustomServerError("invalid credentials", 401);
+  }
+
+  console.log({ dbPassword: dbUser?.password, bodyPassword: body.password });
+  const validPassword = await verifyPassword(dbUser?.password, body.password);
+  console.log({validPassword})
+  if (!validPassword) {
+    throw new CustomServerError("invalid credentials", 401);
   } else {
-    throw new CustomServerError("error while inserting new user", 500);
+    req.session.user = dbUser
+    res.status(200);
+    const responseBody = responseBodyFactory(200, { success: true });
+    res.json(responseBody);
   }
 };

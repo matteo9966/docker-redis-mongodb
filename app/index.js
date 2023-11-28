@@ -1,29 +1,29 @@
 import "./initEnv.js";
-import { initializeMongoConnection,testConnection } from "./db/mongo.js";
+import { initializeMongoConnection, testConnection } from "./db/mongo.js";
 import { startServer } from "./server/server.js";
 import { config } from "../config/config.js";
-/* aspettando di avere  */
-const DATABASE_URL = process.env.MONGO_URL;
+import { configCollections } from "./db/configCollections.js";
 const SERVER_PORT = process.env.PORT || 3000;
-// console.log(temp_DATABASE_URL)
-//console.log({DATABASE_URL})
 console.log({ SERVER_PORT });
 console.log(config);
+console.log('made a change!')
 async function main() {
   try {
-    if (config.WITH_DB) {
-      const client = await initializeMongoConnection();
-      if(await testConnection(client)){
-        console.log('connection succeded!')
-      }else{
-        console.log('connection failed')
+    const client = await initializeMongoConnection();
+    if (await testConnection(client)) {
+      const configured = await configCollections();
+      if (!configured) {
+        throw new Error("Error while configuring the collections");
       }
-     
-      if (!client) {
-        throw new Error("Error connecting to mongodb");
-      }
+    } else {
+      console.log("connection failed");
     }
-    
+
+    if (!client) {
+      throw new Error("Error connecting to mongodb");
+    }
+   
+
     startServer(SERVER_PORT);
     console.log("the server started!");
   } catch (error) {
@@ -31,22 +31,4 @@ async function main() {
     process.exit(1);
   }
 }
-
-process.on('SIGINT', () => {
-  console.info("Interrupted")
-  process.exit(0)
-})
-process.on('SIGTERM', () => {
-  console.info("Interrupted")
-  process.exit(0)
-})
-process.on('SIGKILL', () => {
-  console.info("Interrupted")
-  process.exit(0)
-})
-process.on('SIGABRT', () => {
-  console.info("Interrupted")
-  process.exit(0)
-})
-
 main().catch((e) => console.log("ERROR: ", e));

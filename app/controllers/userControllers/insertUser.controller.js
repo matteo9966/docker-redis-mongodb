@@ -13,7 +13,7 @@ export const insertUser = async (req, res, next) => {
   if (!body.password || !body.username) {
     throw new CustomServerError(400, "missing password or username");
   }
-  const hashedP = hashPassword(body.password);
+  const hashedP = await hashPassword(body.password);
   /**@type {user.User}*/ const userToInsert = {
     password: hashedP,
     username: body.username,
@@ -21,6 +21,7 @@ export const insertUser = async (req, res, next) => {
   const result = await insertUserInDB(userToInsert);
   if (result) {
     res.json(responseBodyFactory(200, { id: result.insertedId.toString() }));
+    req.session.user = userToInsert
   } else {
     throw new CustomServerError("error while inserting new user", 500);
   }

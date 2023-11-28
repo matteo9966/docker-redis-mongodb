@@ -2,8 +2,7 @@ import { MongoClient } from "mongodb";
 import { config } from "../../config/config.js";
 const url = `mongodb://${config.MONGO_USER}:${config.MONGO_PASSWORD}@${config.MONGO_IP}:${config.MONGO_PORT}/${config.MONGO_DB_NAME}?authSource=admin`;
 
-const currentUrl =
-  config.ENVIRONMENT === "development" ? config.MONGO_DEV_URL : url;
+const currentUrl = url;
 
 const mongoClient = new MongoClient(currentUrl);
 

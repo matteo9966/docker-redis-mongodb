@@ -9,7 +9,7 @@ import { CustomServerError } from "../../errors/CustomServerErrror.js";
  */
 export const insertPost = async (req, res, next) => {
   /**@type {gb.InsertPostRequestBody} */ const body = req.body;
-  if (!body.body || !body.title) {
+  if (!body?.body || !body?.title) {
     throw new CustomServerError("missing body or title for post", 400);
   }
   const result = await insertPostModel(body);
