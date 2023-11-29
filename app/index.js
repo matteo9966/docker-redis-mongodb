@@ -31,4 +31,9 @@ async function main() {
     process.exit(1);
   }
 }
+
+// function startWithoutMongoAndRedis(){
+//   startServer(SERVER_PORT);
+// }
+
 main().catch((e) => console.log("ERROR: ", e));

@@ -1,4 +1,5 @@
 export const routes = {
+  base:'/api/v1',
   posts: {
     base: "/posts",
     children: {

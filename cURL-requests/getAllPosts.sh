@@ -1,3 +1,3 @@
 #!/bin/bash
-
-curl -i http://localhost:3001/posts/
+source .conf
+curl -i $GET_ALL_POSTS_URL

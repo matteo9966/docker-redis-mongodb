@@ -24,6 +24,14 @@ add a redis image to the docker-compose.yml file
 use express-session library
 use connect-redis library
 
+# scaling up the application: 
+ - using the docker-compose, use --scale node-app=2 to have two instances of node-app
+
+
+# docker logs
+
+- to have a docker log follow the updates use the docker logs <docker-container-name> -f  
 
 continue from : 3.34h 
+
 
